@@ -49,7 +49,8 @@ submit.addEventListener("click", ()=>{
         placeholder.textContent = '';
     }
     if(todo === ''){
-        alert('You need to enter a value')
+        alert('You need to enter a value');
+        reRenderList();
     }else{
         list.push(item.value);
         todolist.innerHTML += `<li class="tdl" id="list${list.length - 1}"> ${todo} <span class="close" onclick="deleteItem(list${list.length - 1})">x</span></li>`
