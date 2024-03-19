@@ -1,26 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To Do List</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Room List</title>
 </head>
-<body class="body">
-    <div class="header">
-        <h1 style="margin:5px">To Do List</h1>
-        <div class="form">
-            <input type="text" id="item" placeholder="Title...">
-            <span id="submit" class="addBtn">Add Task</span>
-            <!-- <button type="submit"  ></button> -->
-        </div>
-    </div>
-    <ul id="holder" style="text-align: center;"></ul>
-    <ul id="todolist"></ul>
-   <div>
-    <button id="restore" disabled>Restore</button>
-   </div>
+<body>
+  <h1>Room List</h1>
+  <ul id="room-list"></ul>
+
+  <script>
+    const roomList = document.getElementById('room-list');
+
+    document.addEventListener("DOMContentLoaded", function() {
+      loadRoom();
+    });
+
+    function loadRoom(){
+        fetch('http://localhost:3000/api/v1/rooms')
+        .then(response => response.json())
+        .then(data => {
+          displayRooms(data.rooms);
+        })
+        .catch(error => {
+          console.error('Error fetching rooms:', error);
+        });
+    }
+
+    function displayRooms(rooms) {
+      roomList.innerHTML = '';
+
+      rooms.forEach(room => {
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `
+          <h2>${room.name}</h2>
+          <p>Room ID: ${room.name}</p>
+          <p>Room ID: ${room._id}</p>
+          <div id="${room._id}" onclick="findRoom('${room._id}')">See Details</div>
+        `;
+        roomList.appendChild(listItem);
+      });
+    }
+
+    function findRoom(roomId){
+        fetch('http://localhost:3000/api/v1/rooms/' + roomId)
+        .then(response => response.json())
+        .then(data => {
+            displayRoom(data);
+        })
+        .catch(error => {
+            console.error("Error fetching room:", error);
+        });
+
+    }
+
+    function displayRoom(room){
+        roomList.innerHTML = ''; 
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `
+            <h2>${room.name}</h2>
+            <p>Room ID: ${room._id}</p>
+            <p>Room Type: ${room.room_type}</p>
+            <p>Price: ${room.price}</p>
+            <button onclick="loadRoom()">Go Back</button>
+        `;
+        roomList.appendChild(listItem);
+    }
+  </script>
 </body>
-<script src="todo.js"></script>
 </html>
