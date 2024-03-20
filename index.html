@@ -4,11 +4,37 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Room List</title>
+  <style>
+    .body{
+    background-color: blue;
+    position:absolute;
+    top:15px;
+    right:50px;
+    bottom:10px;
+    left:50px;
+
+    margin: 0;
+    min-width: 250px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+  </style>
 </head>
 <body>
   <h1>Room List</h1>
-  <ul id="room-list"></ul>
+  <ul id="room-list">
+    <li>
+      <h1>Room Name: Atiku</h1>,
+      <h3>Room Type: Presidential</h3>
+      <h3>price: 4500</h3>
+    </li>
+    <li>
+      <h1>Room Name: Atiku</h1>,
+      <h3>Room Type: Presidential</h3>
+      <h3>price: 4500</h3>
+    </li>
+  </ul>
 
+  <p>Please note that this is a static site as node cannot be implemented for free on this platform and I do not posses the skill to set it up</p>
   <script>
     const roomList = document.getElementById('room-list');
 
